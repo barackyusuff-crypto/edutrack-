@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlavorHub | Online Food Menu</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary-color: #ff6b6b; 
+            --dark-bg: #1a1a1a;
+            --light-text: #f4f4f4;
+            --card-bg: #ffffff;
+            --sidebar-width: 280px;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Dramatic Sidebar --- */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: calc(-1 * var(--sidebar-width));
+            width: var(--sidebar-width);
+            height: 100%;
+            background: var(--dark-bg);
+            z-index: 2000;
+            transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            padding: 2rem;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar h2 {
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .sidebar-links {
+            list-style: none;
+        }
+
+        .sidebar-links li {
+            margin: 20px 0;
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .sidebar.active .sidebar-links li {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .sidebar-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            display: block;
+        }
+
+        .sidebar-links a:hover {
+            color: var(--primary-color);
+            padding-left: 10px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1500;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+
+        .menu-toggle {
+            cursor: pointer;
+            background: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .menu-toggle:hover { background: #ff4747; }
+
+        header {
+            background-color: var(--dark-bg);
+            background: linear-gradient(#000 22px 22px   , #999 100px);
+            color: white;
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 100px 7px 20px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 9px;
+        }
+
+        .logo { font-size: 1.8rem; font-weight: bold; }
+        .logo span { color: var(--primary-color); }
+
+
+        .hero {
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1200') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+            .btn{
+                color: #000;
+                font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+                width: 200px;
+                height: 20px;
+                background: #999;
+
+
+            }
+
+        .menu-section { padding: 60px 5%; }
+        .section-title { text-align: center; margin-bottom: 30px; font-size: 2.5rem; }
+
+        .menu-grid {
+            display: flex; 
+            overflow-x: auto; 
+            gap: 25px;
+            padding: 20px 0;
+            scroll-snap-type: x mandatory; 
+            -webkit-overflow-scrolling: touch; 
+        }
+
+        .menu-grid::-webkit-scrollbar { height: 8px; }
+        .menu-grid::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 10px; }
+
+        .food-card {
+            flex: 0 0 320px; 
+            scroll-snap-align: start;
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: 0.4s;
+        }
+
+        .food-card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+          
+        .food-img { height: 200px; background-size: cover; background-position: center; }
+        .food-info { padding: 25px; text-align: center; }
+        .price { font-weight: bold; color: var(--primary-color); font-size: 1.4rem; margin: 10px 0; }
+        
+        .order-btn {
+            background: var(--dark-bg);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        footer { background: var(--dark-bg); color: white; padding: 40px 0; text-align: center; }
+
+        .reveal { animation: revealScale 0.8s ease-in-out; }
+        @keyframes revealScale { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    <div class="sidebar" id="sidebar">
+        <h2>Categories</h2>
+        <ul class="sidebar-links">
+            <li style="transition-delay: 0.1s;"><a href="#">🚀 Fast Delivery</a></li>
+            <li style="transition-delay: 0.2s;"><a href="#">🌿 Sugarless & Healthy</a></li>
+            <li style="transition-delay: 0.3s;"><a href="#">🥩 Prime Beefs</a></li>
+            <li style="transition-delay: 0.4s;"><a href="#">🍕 Rwandan Pizzas</a></li>
+            <li style="transition-delay: 0.5s;"><a href="#">🍰 Sweet Desserts</a></li>
+            <li style="transition-delay: 0.6s;"><a href="#">🥤 Cold Drinks</a></li>
+        </ul>
+    </div>
+
+    <header>
+        <button class="menu-toggle" onclick="toggleMenu()">☰ MENU</button>
+        <div class="logo">Flavor<span>Hub</span></div>
+        <div style="width: 80px;"></div> </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Delicious Meals</h1>
+        <button>   <a href="#menu" class="btn">Explore Menu</a></button>
+        </div>
+    </section>
+
+    <section id="menu" class="menu-section">
+        <h2 class="section-title">Today's Specials</h2>
+        <div class="menu-grid">
+            
+            <div class="food-card reveal">
+                <div class="food-img" style="background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=500');"></div>
+                <div class="food-info">
+                    <h3>Classic Burger</h3>
+                    <p class="price">3500 FRW</p>
+                    <button class="order-btn">View Details</button>
+                </div>
+            </div>
+
+            <div class="food-card reveal">
+                <div class="food-img" style="background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=500');"></div>
+                <div class="food-info">
+                    <h3>RWANDAN Pizza</h3>
+                    <p class="price">3000 FRW</p>
+                    <button class="order-btn">View Details</button>
+                </div>
+            </div>
+
+            <div class="food-card reveal">
+                <div class="food-img" style="background-image: url('https://images.unsplash.com/photo-1629386530401-3ad166cc2cba?q=80&w=500')"></div>
+                <div class="food-info">
+                    <h3>LAVA Core Cake</h3>
+                    <p class="price">8000 FRW </p>
+                    <button class="order-btn">View Details</button>
+                </div>
+            </div>
+
+            <div class="food-card reveal">
+                <div class="food-img" style="background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=500');"></div>
+                <div class="food-info">
+                    <h3>BBQ Beef Ribs</h3>
+                    <p class="price">12000 FRW </p>
+                    <button class="order-btn">View Details</button>
+                </div>
+            </div>
+
+            <div class="food-card reveal">
+                <div class="food-img" style="background-image: url('https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=500');"></div>
+                <div class="food-info">
+                    <h3>Chicken Pasta</h3>
+                    <p class="price">7000 FRW </p>
+                    <button class="order-btn">View Details</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 FlavorHub | Quality Food</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>
