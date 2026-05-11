@@ -1,39 +1,53 @@
-//render all subjects cards into subject-container
-
+// Render all Subject Cards Into Subject Container
 function renderSubject(list) {
-     const container = document.getElementById("subject-container")
-     container.innerHTML = ""; //clear all existing content
+    const subjectContainer = document.getElementById("subject-container");
+    subjectContainer.innerHTML = "";   //Clear All Existing Cards
 
-     if (list.length === 0) {
-        container.innerHTML = '<p class="empty-msg">No subjects found.</p>';
+    if (list.length === 0) {
+        subjectContainer.innerHTML = `
+            <p class="empty-msg">
+                  No Subject Found!!!!
+            </p>
+        `
         return;
-     }
-     list.forEach(function(subject){
-        const getGradeInfo = getGradeLetter(subject.grade); //from app.js
+    }
 
-        // create the cards element
-        const card = document.createElement("article")
-        card.className = "subject-cards";
-        card.dataset.id = subject.id ;
+    // list.forEach(subject => {
+    //     const getGradeInfo = getGradeLetter(subject.grade);   //From app.js
+    //     const subjectCard = document.createElement("article");
+    //     subjectCard.classList.add("subject-card");
+    //     subjectCard.innerHTML = `
+    //         <div class="card-header">
+    //             <h3>${subject.name}</h3>
+    //             <span class="badge">${subject.code}</span>
+    //         </div>
+    //         <div class="card-body">
+    //             <div class="grade-badge grade-b">85% - B</div>
+    //             <p class="credits">Credits:${subject.credits}</p>
+    //         </div>
+    //     `;
+    //     subjectContainer.appendChild(subjectCard);
+    // });
 
-        //build our inner HTML
-
-        card.innerHTML = `
-        <div class="card-header">
-        <h3>${subject.name}</h3>
-        <span class=" badge">${ subject.code}</span>
-        </div>
-        <div class="card-body">
-        <div class="grade-badge ${getGradeInfo.css}">
-        ${ subject.grade}% - ${getGradeInfo.letter}</div>
-        </div>
-        <p class="credits">credits: ${subject.credits}</p>
-        <p class=" description">${ subject.description}</p>
-        </div>
+    list.forEach(function (subject) {
+        const getGradeInfo = getGradeLetter(subject.grade);   //From app.js
+        const subjectCard = document.createElement("article");
+        subjectCard.className = "subject-card";
+        subjectCard.classList.add("subject-card");
+        subjectCard.innerHTML = `
+            <div class="card-header">
+                <h3>${subject.name}</h3>
+                <span class="badge">${subject.code}</span>
+            </div>
+            <div class="card-body">
+                <div class="grade-badge grade-${getGradeInfo.css}">${getGradeInfo.grade}% - ${getGradeInfo.letter}</div>
+                <p class="credits">Credits:${subject.credits}</p>
+            </div>
         `;
-        container.appendChild(card);
-     }
-    );
+        subjectContainer.appendChild(subjectCard);
+    })
 }
-//run when dom is ready
-document.addEventListener("")
+
+document.addEventListener("DOMContentLoaded", function () {
+    renderSubject(subjects);
+});

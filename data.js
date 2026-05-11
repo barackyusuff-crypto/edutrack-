@@ -1,31 +1,31 @@
-// this will replace hardcoded html cards
+// This will replace Hardcoded HTML cards
 
-const subjects = [
- {   id: 1,
+const subjects = [{
+    id: 1,
     name: "Javascript Fundamentals",
-    code: "SWDJF301",
+    code: "SWDJF 301",
     credits: 3,
-    description: "variables, functions, arrays , DOM's"
-},
-{
+    grade: 85,
+    description: "Variables, Functions, Arrays, DOM's, Events, Objects, Loops, Conditionals, etc.",
+}, {
     id: 2,
-    name: "Vue.Js Framework",
-    code: "SWDVF301",
+    name: "Vue.js Framework",
+    code: "SWDVF 301",
     credits: 3,
-    description: "components, router, state management"
-},
-{
-    id:3,
+    grade: 92,
+    description: "Components, Routers, Statemanagement, etc.",
+}, {
+    id: 3,
     name: "Version Control",
-    code: "SWDVC301",
+    code: "SWDVC 301",
     credits: 3,
-    description: "Git, GitHub, Branching, Merging",    
-}
-{
-    id:3,
+    grade: 78,
+    description: "Git, Github, Branching, Merging, Collaboration, etc.",
+}, {
+    id: 4,
     name: "Website Development",
-    code: "SWDWD301",
+    code: "SWDWD 301",
     credits: 3,
-    description: "HTML5, CSS3, Responsive Design ",    
-}
-]
+    grade: 88,
+    description: "HTML5, CSS3, Responsive Design, Accessibility, etc.",
+}]
