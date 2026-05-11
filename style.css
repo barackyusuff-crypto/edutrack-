@@ -160,7 +160,7 @@ a {
     font-weight: 800;
     font-size: 1.4rem;
     cursor: pointer;
-    color: var(--primary-color);
+    color: var(--warning);
     letter-spacing: -0.5px;
 }
 
@@ -173,7 +173,7 @@ nav a {
     text-decoration: none;
     padding: 8px 14px;
     border-radius: var(--radius);
-    color: var(--text-muted);
+    color: var(--);
     font-weight: 600;
     transition: color 0.2s, background-color 0.2s;
     font-size: .95rem;
@@ -181,8 +181,8 @@ nav a {
 
 nav a:hover,
 nav a.active {
-    color: var(--primary-color);
-    background-color: #edeff1;
+    color: var(--warning);
+    background-color: #0f0c06;
 }
 
 .footer {
