@@ -12,40 +12,23 @@ function renderSubject(list) {
         return;
     }
 
-    // list.forEach(subject => {
-    //     const getGradeInfo = getGradeLetter(subject.grade);   //From app.js
-    //     const subjectCard = document.createElement("article");
-    //     subjectCard.classList.add("subject-card");
-    //     subjectCard.innerHTML = `
-    //         <div class="card-header">
-    //             <h3>${subject.name}</h3>
-    //             <span class="badge">${subject.code}</span>
-    //         </div>
-    //         <div class="card-body">
-    //             <div class="grade-badge grade-b">85% - B</div>
-    //             <p class="credits">Credits:${subject.credits}</p>
-    //         </div>
-    //     `;
-    //     subjectContainer.appendChild(subjectCard);
-    // });
-
-    list.forEach(function (subject) {
-        const getGradeInfo = getGradeLetter(subject.grade);   //From app.js
-        const subjectCard = document.createElement("article");
-        subjectCard.className = "subject-card";
-        subjectCard.classList.add("subject-card");
-        subjectCard.innerHTML = `
-            <div class="card-header">
-                <h3>${subject.name}</h3>
-                <span class="badge">${subject.code}</span>
-            </div>
-            <div class="card-body">
-                <div class="grade-badge grade-${getGradeInfo.css}">${getGradeInfo.grade}% - ${getGradeInfo.letter}</div>
+     list.forEach(subject => {
+         const getGradeInfo = getGradeLetter(subject.grade);   //From app.js
+         const subjectCard = document.createElement("article");
+         subjectCard.classList.add("subject-card");
+         subjectCard.innerHTML = `
+             <div class="card-header">
+                 <h3>${subject.name}</h3>
+                 <span class="badge">${subject.code}</span>
+             </div>
+             <div class="card-body">
+                 <div class="grade-badge grade-b">85% - B</div>
                 <p class="credits">Credits:${subject.credits}</p>
-            </div>
-        `;
-        subjectContainer.appendChild(subjectCard);
-    })
+             </div>
+         `;
+         subjectContainer.appendChild(subjectCard);
+     });
+
 }
 
 document.addEventListener("DOMContentLoaded", function () {

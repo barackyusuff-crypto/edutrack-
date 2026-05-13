@@ -42,8 +42,7 @@ function renderCalculator() {
 
   if (avgEl) avgEl.textContent = average + "%";
   if (gpaEl) gpaEl.textContent = gpa.toFixed(1);
-  if (grEl) grEl.textContent = grade.letter;
-  if (crEl) crEl.textContent = credits;
+  if (grEl) grEl.textContent = grade.letter; if (crEl) crEl.textContent = credits;
 
   const bar = document.getElementById("progress-bar");
   if (bar) {
@@ -69,4 +68,4 @@ function renderCalculator() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", renderCalculator);
+document.addEventListener("DOMContentLoaded", renderCalculator);

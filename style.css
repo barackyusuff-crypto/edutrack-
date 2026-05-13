@@ -142,17 +142,17 @@ a {
 }
 
 .navbar {
-    background-color: var(--surface);
+    background-color: rgb(80, 70, 214);
     /* border-bottom: 1px solid var(--border); */
     height: 64px;
     padding: 10px 20px;
     position: sticky;
-    top: 20px;
+    top: 0px;
     z-index: 100;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-radius: var(--radius-lg);
+    border-radius: 9px;
     box-shadow: var(--shadow-sm)
 }
 
@@ -198,9 +198,9 @@ nav a.active {
 /* Hero */
 .hero {
     padding: 72px 32px;
-    background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+    background: linear-gradient(135deg, #eff6ff 0%, #6dbff7 100%);
     text-align: center;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px  var(--border);
 }
 
 .hero h1 {
@@ -440,7 +440,7 @@ nav a.active {
 
     nav {
         display: none;
-        position: absolute;
+        position: sticky;
         top: 64px;
         left: 0;
         right: 0;
